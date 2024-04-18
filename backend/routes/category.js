@@ -1,11 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const categoryModel = require('../models/categoryModel');
+const categoryModel = require("../models/categoryModel");
 
 // Get all categories
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const categories = await categoryModel.find(isDeleted == false);
+    // const categories = await categoryModel.find({ isDeleted: false });
+    const allcategories = await categoryModel.find();
+    const categories = allcategories.filter((category) => !category.isDeleted);
     res.json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -13,11 +15,11 @@ router.get('/', async (req, res) => {
 });
 
 // Get a specific category
-router.get('/:categoryId', async (req, res) => {
+router.get("/:categoryId", async (req, res) => {
   try {
     const category = await categoryModel.findById(req.params.categoryId);
     if (!category) {
-      return res.status(404).json({ message: 'Không tìm thấy danh mục' });
+      return res.status(404).json({ message: "Không tìm thấy danh mục" });
     }
     res.json(category);
   } catch (error) {
@@ -26,7 +28,7 @@ router.get('/:categoryId', async (req, res) => {
 });
 
 // Create a new category
-router.post('/createCategory', async (req, res) => {
+router.post("/createCategory", async (req, res) => {
   try {
     const newCategory = new categoryModel(req.body);
     await newCategory.save();
@@ -37,29 +39,34 @@ router.post('/createCategory', async (req, res) => {
 });
 
 // Update a category
-router.put('/:categoryId', async (req, res) => {
+router.put("/:categoryId", async (req, res) => {
   try {
-    var category = await categoryModel.findByIdAndUpdate(req.params.categoryId, req.body,
-        {
-            new: true,
-        }
-    ).exec();
-    res.status(200).send(book);
+    var category = await categoryModel
+      .findByIdAndUpdate(req.params.categoryId, req.body, {
+        new: true,
+      })
+      .exec();
+    res.status(200).send(category);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
 // Delete a category
-router.delete('/:categoryId', async (req, res) => {
+router.delete("/:categoryId", async (req, res) => {
   try {
-    var category = categoryModel.findByIdAndUpdate(req.params.categoryId, {
-        isDeleted: true
-    },
+    var category = categoryModel
+      .findByIdAndUpdate(
+        req.params.categoryId,
         {
-          new: true
-        }).exec();
-    res.json({ message: 'Category deleted successfully' });
+          isDeleted: true,
+        },
+        {
+          new: true,
+        }
+      )
+      .exec();
+    res.json({ message: "Category deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

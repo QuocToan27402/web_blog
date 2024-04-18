@@ -4,7 +4,7 @@ const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'category' }],
+  categories: { type: mongoose.Schema.Types.ObjectId, ref: 'category' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   isDeleted:{

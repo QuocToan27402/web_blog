@@ -65,7 +65,7 @@ const CreateBlog = ({ user }) => {
 			const response = await axios.post(url, payload);
 			setLoading(false);
 
-			toast.success(response.data.message, {
+			toast.success("Tạo bài viết thành công", {
 				style: {
 					border: "1px solid #4BB543",
 					padding: "16px",

@@ -20,35 +20,21 @@ const BlogDetail = ({ user }) => {
 	const [loading, setLoading] = useState(true);
 
 	// try{
-	// 	const fetchBlogs = async () => {
-	// 		setLoading(true);
+		const fetchBlogs = async () => {
+			setLoading(true);
 	
-	// 		const response = await axios.get(`${baseUrl}/api/posts/posts/categories/${slug}`);
-	// 		setBlogs(response.data);
-	// 		console.log(response.data);
-	// 		setLoading(false);
-	// 	};
+			const response = await axios.get(`${baseUrl}/api/posts/posts/categories/${slug}`);
+			setBlogs(response.data);
+			console.log(response.data);
+			setLoading(false);
+		};
 	// } catch(err){
 	// 	setBlogs([]);
 	// }
 
 	
 	useEffect(() => {
-		// fetchBlogs();
-		try{
-			const fetchBlogs = async () => {
-				setLoading(true);
-		
-				const response = await axios.get(`${baseUrl}/api/posts/posts/categories/${slug}`);
-				setBlogs(response.data);
-				console.log(response.data);
-				setLoading(false);
-				console.log(Blogs);
-			};
-			fetchBlogs();
-		} catch(err){
-			setBlogs([]);
-		}
+		fetchBlogs();
 	}, [slug]);
 
 	

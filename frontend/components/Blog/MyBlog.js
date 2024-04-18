@@ -128,9 +128,9 @@ const MyBlog = ({ user }) => {
                                                                         <ul className="list">
                                                                             <li>
                                                                                 {/* {blog.content} */}
-                                                                                <div
+                                                                                {/* <div
                                                                                     dangerouslySetInnerHTML={{ __html: blog.content }}
-                                                                                ></div>
+                                                                                ></div> */}
                                                                             </li>
                                                                         </ul>
                                                                     </div>
